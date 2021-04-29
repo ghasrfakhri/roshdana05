@@ -29,22 +29,18 @@ if (isPostMethod()) {
     }
 
 
-
-    $query = "INSERT INTO product_category (product_id, category_id) VALUES". implode(',',$queryValues);
+    $query = "INSERT INTO product_category (product_id, category_id) VALUES" . implode(',', $queryValues);
     $result = $db->query($query);
     redirectToUrl('index3.php');
 }
 
 
 
-$query = "SELECT * FROM category";
-$result = $db->query($query);
-if (false == $result) {
-    echo "Error";
-    exit;
-}
-
-$categories = $result->fetch_all(MYSQLI_ASSOC);
+$categories = getCategories();
+//
+//echo "<pre>";
+//var_dump($categories);
+//echo "</pre>";
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -65,9 +61,8 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
     <label>
         category: <select name="category_id[]" multiple>
             <?php
-            foreach ($categories as $category) {
-                echo "<option value='$category[id]'>$category[title]</option>";
-            }
+            createOptions($categories);
+
             ?>
         </select>
     </label><br>

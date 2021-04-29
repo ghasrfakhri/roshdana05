@@ -11,3 +11,5 @@ function redirectToUrl($url)
     header("Location: $url");
     exit;
 }
+
+require __DIR__ . '/category.php';
